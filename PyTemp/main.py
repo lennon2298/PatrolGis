@@ -51,18 +51,27 @@ class MyForm(QMainWindow):
 
     
     def getfile(self):
-            self.fname = QFileDialog.getOpenFileName(self,'Open File','D:\Work\Basemaps\Basemaps',"Shape Files (*.shp)")
-            # print(self.fname[0])
-            if self.fname is not None:
-                list_of_shp_files.append(self.fname[0])
-                self.c_plot()
+            try:
+                self.fname = QFileDialog.getOpenFileName(self,'Open File','D:\Work\Basemaps\Basemaps',"Shape Files (*.shp)")
+                # print(self.fname[0])
+                if self.fname is not None:
+                    list_of_shp_files.append(self.fname[0])
+                    self.c_plot()
+            except:
+                print(sys.exc_info()[0], "Exception Caught")
 
     
     def savefile(self):
-            fname = QFileDialog.getSaveFileName(self,'Save File','d:\\',"Shape Files (*.shp)")
+            try:
+                fname = QFileDialog.getSaveFileName(self,'Save File','d:\\',"Shape Files (*.shp)")
+            except:
+                print(sys.exc_info()[0], "Excpetion Caught")
     
     def saveasfile(self):
-            fname = QFileDialog.getSaveFileName(self,'Save As','d:\\')
+            try:
+                fname = QFileDialog.getSaveFileName(self,'Save As','d:\\')
+            except:
+                print(sys.exc_info()[0], "Excpetion Caught")
 
 
         
