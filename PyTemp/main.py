@@ -26,37 +26,43 @@ class MyForm(QMainWindow):
         self.ui.figure.clear()
         ax = self.ui.figure.add_subplot(111)
         ax.axis('off')
-        for i in range(len(list_of_shp_files)):
-            # print(i)
-            self.f_name = list_of_shp_files[i]
-            self.shape_file = gpd.read_file(self.f_name)
-            shp_attributes.append(self.shape_file)
-            # CHECK IF THE PROJECT OF THE SHAPEFILE IS SAME OR NOT AND THEN SET IT ACCORDINGLY
+        try:
+            for i in range(len(list_of_shp_files)):
+                # print(i)
+                self.f_name = list_of_shp_files[i]
+                self.shape_file = gpd.read_file(self.f_name)
+                shp_attributes.append(self.shape_file)
+                # CHECK IF THE PROJECT OF THE SHAPEFILE IS SAME OR NOT AND THEN SET IT ACCORDINGLY
 
-            if self.shape_file.crs['init'] != 'epsg:32644':
-                print(self.shape_file.crs['init'])
-                self.data_proj = self.shape_file.copy()
-                self.data_proj['geometry'] = self.data_proj['geometry'].to_crs(epsg=32644)
-            else:
-                self.data_proj = self.shape_file.copy()
-            self.data_proj .plot(categorical=True,
-                           ax=ax,
-                           color=color_list[i],
-                           legend=True,
-                           edgecolor='black',
-                           figsize=(20, 20),
-                           markersize=45
-                          )
+                if self.shape_file.crs['init'] != 'epsg:32644':
+                    print(self.shape_file.crs['init'])
+                    self.data_proj = self.shape_file.copy()
+                    self.data_proj['geometry'] = self.data_proj['geometry'].to_crs(epsg=32644)
+                else:
+                    self.data_proj = self.shape_file.copy()
+                self.data_proj .plot(categorical=True,
+                               ax=ax,
+                               color=color_list[i],
+                               legend=True,
+                               edgecolor='black',
+                               figsize=(20, 20),
+                               markersize=45
+                              )
+        except:
+            print("ERROR!!!")
         self.ui.canvas.draw()
 
     
     def getfile(self):
             try:
+                #self.fname = ""
                 self.fname = QFileDialog.getOpenFileName(self,'Open File','D:\Work\Basemaps\Basemaps',"Shape Files (*.shp)")
-                # print(self.fname[0])
+                print(self.fname[0])
                 if self.fname is not None:
-                    list_of_shp_files.append(self.fname[0])
-                    self.c_plot()
+                    if self.fname[0] != "":
+                        list_of_shp_files.append(self.fname[0])
+                        print("XD")
+                        self.c_plot()
             except:
                 print(sys.exc_info()[0], "Exception Caught")
 
