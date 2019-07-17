@@ -49,7 +49,8 @@ class MyForm(QMainWindow):
                                markersize=45
                               )
         except:
-            print("ERROR!!!")
+            #print("ERROR!!!")
+            del list_of_shp_files[-1]
         self.ui.canvas.draw()
 
     
@@ -57,11 +58,11 @@ class MyForm(QMainWindow):
             try:
                 #self.fname = ""
                 self.fname = QFileDialog.getOpenFileName(self,'Open File','D:\Work\Basemaps\Basemaps',"Shape Files (*.shp)")
-                print(self.fname[0])
+                #print(self.fname[0])
                 if self.fname is not None:
                     if self.fname[0] != "":
                         list_of_shp_files.append(self.fname[0])
-                        print("XD")
+                        #print("XD")
                         self.c_plot()
             except:
                 print(sys.exc_info()[0], "Exception Caught")
