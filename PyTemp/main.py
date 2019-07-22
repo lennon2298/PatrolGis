@@ -11,6 +11,7 @@ import os
 import earthpy as et
 import random
 from gis.template import *
+import fiona
 
 class MyForm(QMainWindow):
     def __init__(self, parent=None):
@@ -33,9 +34,26 @@ class MyForm(QMainWindow):
             for i in range(len(list_of_shp_files)):
                 # print(i)
                 self.f_name = list_of_shp_files[i]
+                # print(self.f_name)
                 self.shape_file = gpd.read_file(self.f_name)
+                # print(list_of_shp_files)
+                # print(self.shape_file.STATE_N)
                 # self.yaga= list()
+
+
+                # PROCESSING FOR ATTRIBUTE
+                prop_keys_list = []
+                prop_attr_list = []
+
+                # RUNNING BOTH LOOPS PARALLEL
+                
+
+                # for i in range(1000):
+                #     prop_attr_list.append(i)
+                #     prop_keys_list.append(i)
+
                 shp_attributes.append(self.shape_file)
+                # print(shp_attributes.geometry)
                 # print(self.yaga)
                 # shp_attributes.append(self.yaga)
                 # print(self.shape_file)
@@ -43,10 +61,12 @@ class MyForm(QMainWindow):
                 # CHECK IF THE PROJECT OF THE SHAPEFILE IS SAME OR NOT AND THEN SET IT ACCORDINGLY
 
                 if self.shape_file.crs['init'] != 'epsg:32644':
+                    print("work")
                     # print(self.shape_file.crs['init'])
                     self.data_proj = self.shape_file.copy()
                     self.data_proj['geometry'] = self.data_proj['geometry'].to_crs(epsg=32644)
                 else:
+                    print("work")
                     self.data_proj = self.shape_file.copy()
                 self.data_proj .plot(categorical=True,
                                ax=ax,
@@ -56,10 +76,22 @@ class MyForm(QMainWindow):
                                figsize=(60, 60),
                                markersize=45
                               )
+
+                for feat in fiona.open(self.f_name):
+                    prop_keys_list = feat.keys()
+
+                for i in prop_keys_list:
+                    for feat in fiona.open(self.f_name):
+                        prop_attr_list.append(feat[i])
+                
+                for i, j in zip(prop_keys_list, prop_attr_list):
+                    print(i,j)
         except:
             #print("ERROR!!!")
             del list_of_shp_files[-1]
+        print("is it working")
         self.ui.canvas.draw()
+
 
     
     def getfile(self):
