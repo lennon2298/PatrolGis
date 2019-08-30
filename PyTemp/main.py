@@ -2,7 +2,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import (QPushButton, QWidget, QLineEdit, QApplication, QMainWindow,QFileDialog,QTableWidget,QTableWidgetItem,QListWidgetItem,QListWidget)
 from resource_rc import *
 import sys
-from parent_ui import Ui_MainWindow
+from newUI import Ui_MainWindow
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as NavigationToolbar
 import matplotlib.pyplot as plt
