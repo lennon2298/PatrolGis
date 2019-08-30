@@ -1,0 +1,13 @@
+<!DOCTYPE RCC><RCC version="1.0">
+<qresource prefix = "res">
+    <file>res/zoomin.ico</file>
+    <file>res/zoomout.ico</file>
+    <file>res/save.ico</file>
+    <file>res/saveas.ico</file>
+    <file>res/new2.ico</file>
+    <file>res/open2.ico</file>
+    <file>res/hand4.ico</file>
+    <file>res/undo4.ico</file>
+    <file>res/mainLogo4.ico</file>
+</qresource>
+</RCC>
