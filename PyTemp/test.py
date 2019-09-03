@@ -19,8 +19,9 @@ fig.subplots_adjust(left=0,right=1,bottom=0,top=1)
 # Set the gridding interval: here we use the major tick interval
 myInterval=20
 loc = plticker.MultipleLocator(base=myInterval)
+loc1 = plticker.MultipleLocator(base=myInterval)
 ax.xaxis.set_major_locator(loc)
-ax.yaxis.set_major_locator(loc)
+ax.yaxis.set_major_locator(loc1)
 
 # Add the grid
 
