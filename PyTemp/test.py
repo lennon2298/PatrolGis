@@ -4,7 +4,7 @@ from PIL import Image
 import matplotlib.path as mplPath
 import numpy as np
 # Open image file
-image = Image.open('.\\beat2.png')
+image = Image.open('.\\beat67.png')
 my_dpi=50
 # print(type(image))
 pix = image.load()
@@ -33,10 +33,11 @@ ax.imshow(image)
 nx=abs(int(float(ax.get_xlim()[1]-ax.get_xlim()[0])/float(myInterval)))
 ny=abs(int(float(ax.get_ylim()[1]-ax.get_ylim()[0])/float(myInterval)))
 
-points_list = np.empty((nx, ny))
+points_list = np.empty((ny, nx))
 
 # print(points_list[0][2])
 print(nx, ny)
+count = 0
 
 # Add some labels to the gridsquares
 for j in range(ny):
@@ -46,13 +47,14 @@ for j in range(ny):
         # pnt = [int(x),int(y)]
         # print(x, y)
         r=0.001
-        if((pix[x,y][0] == 255 and pix[x,y][1] == 255) or (pix[x,y][0] == 0 and pix[x,y][1] == 0)):
-            points_list[i][j] = -1
+        if(pix[x,y][0] < 255):
+            points_list[j][i] = 0
         else:
             # print(i, j)
-            points_list[i][j] = 0
-        ax.text(x,y,'{:d}'.format(i+j*nx),color='black',ha='center',va='center')
-        # print(pix[x,y][0])
+            points_list[j][i] = 1
+        ax.text(x,y,count,color='g',ha='center',va='center')
+        count = count + 1
+        print(pix[x,y][0], pix[x,y][1], pix[x,y][2])
         # plt.plot(x, y, 'ro')
 
 # Save the figure
