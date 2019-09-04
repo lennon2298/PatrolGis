@@ -7,7 +7,7 @@
 # WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import (QFileDialog, QTableWidget, QTableWidgetItem, QVBoxLayout, QGridLayout)
+from PyQt5.QtWidgets import (QFileDialog, QTableWidget, QTableWidgetItem, QVBoxLayout, QGridLayout, QSizePolicy)
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as NavigationToolbar

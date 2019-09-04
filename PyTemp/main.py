@@ -1,5 +1,5 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import (QPushButton, QWidget, QLineEdit, QApplication, QMainWindow,QFileDialog,QTableWidget,QTableWidgetItem,QListWidgetItem,QListWidget)
+from PyQt5.QtWidgets import (QPushButton, QWidget, QLineEdit, QApplication, QMainWindow, QFileDialog, QTableWidget, QTableWidgetItem, QListWidgetItem, QListWidget, QInputDialog, QAbstractItemView)
 from resource_rc import *
 import sys
 from newUI import Ui_MainWindow
@@ -18,9 +18,17 @@ class MyForm(QMainWindow):
         QWidget.__init__(self, parent)
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
-        self.ui.openButton.clicked.connect(self.getfile)
+        self.ui.openButton.clicked.connect(self.getFile)
         self.ui.saveButton.clicked.connect(self.savefile)
         self.ui.saveasButton.clicked.connect(self.saveasfile)
+        self.ui.menuSplit.triggered.connect(self.showDialog)
+        self.setAcceptDrops(True)
+        # self.setDragDropMode(QAbstractItemView.InternalMove)
+        # self.ui.setAcceptDrops(True)
+        self.ui.frame_3.setAcceptDrops(True)
+        # self.ui.setDragDropMode(QAbstractItemView.InternalMove)
+        
+    
         
     def c_plot(self):
         # self.f_name = name
@@ -91,11 +99,10 @@ class MyForm(QMainWindow):
             del list_of_shp_files[-1]
         print("is it working")
         self.ui.canvas.draw()
+       
 
-
-    
-    def getfile(self):
-
+    def getFile(self):
+            
             try:
                 #self.fname = ""
                 self.fname = QFileDialog.getOpenFileName(self,'Open File','D:\Work\Basemaps\Basemaps',"Shape Files (*.shp)")
@@ -109,7 +116,25 @@ class MyForm(QMainWindow):
                         self.get_table()
                         # self.ui.listWidget.setCurrentItem(shp_attributes)
             except:
-                print(sys.exc_info()[0], "Exception Caught")
+                print(sys.exc_info()[0], "Exception Caught 1")
+
+
+
+    def dragEnterEvent(self, event):
+        if event.mimeData().hasUrls():
+            event.accept()
+        else:
+            event.ignore()
+
+
+    def dropEvent(self, event):
+            # for url in event.mimeData().urls():
+            # self.fname = QtCore.QUrl.fileName(event.mimeData().urls())
+            for url in event.mimeData().urls():
+                list_of_shp_files.append(url.toLocalFile())
+                # self.fname = url.toEncoded()
+            self.c_plot()
+            self.get_table()
                         
     def savefile(self):
             try:
@@ -145,6 +170,18 @@ class MyForm(QMainWindow):
             # self.ui.tableWidget.setItem(2,1, QTableWidgetItem("Cell (3,2)"))
             # self.ui.tableWidget.setItem(3,0, QTableWidgetItem("Cell (4,1)"))
             # self.ui.tableWidget.setItem(3,1, QTableWidgetItem("Cell (4,2)"))
+
+    def showDialog(self):
+            
+            text, ok = QInputDialog.getText(self, 'Enter Beat Region', 
+                'Beat Region Number:')
+        
+            if ok:
+             self.ui.listWidget_3.clear()
+             self.ui.listWidget_3.addItems(list(text))
+
+
+    
             
 
 
