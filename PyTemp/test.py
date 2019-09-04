@@ -3,16 +3,13 @@ import matplotlib.ticker as plticker
 from PIL import Image
 import matplotlib.path as mplPath
 import numpy as np
-<<<<<<< HEAD
 import collections 
-
-# Open image file
-image = Image.open('./beat25.png')
-=======
 import math
 # Open image file
+image = Image.open('./beat25.png')
+
+# Open image file
 image = Image.open('.\\beat25.png')
->>>>>>> a4e7717c928e4761f571e827e996b97d9c5dd116
 my_dpi=54
 # print(type(image))
 pix = image.load()
@@ -47,12 +44,9 @@ points_list = points_list.astype(int)
 print(nx, ny)
 count = 0
 count_zero = 0
-<<<<<<< HEAD
 
 # REVERSE POINT LIST
 reverse_point_list = dict()
-=======
->>>>>>> a4e7717c928e4761f571e827e996b97d9c5dd116
 
 # Add some labels to the gridsquares
 for j in range(ny):
@@ -83,7 +77,6 @@ for j in range(ny):
         # plt.plot(x, y, 'ro')
 
 # Save the figure
-<<<<<<< HEAD
 # print(points_list)
 # print(count_zero)
 # print(reverse_point_list)
@@ -146,7 +139,7 @@ def cal_path(start_pos, end_pos):
         # print(i)
         x, y = [z for z in i]
         # print(x," ",y)
-        copy_point_list[x][y] = -1
+        copy_point_list[x][y] = 1
     return True
         
     # print(path)
@@ -175,28 +168,21 @@ reverse_print_data()
 #             if points_list[i][j] == 0.:
 #                 print("Found")
 #                 return count
+
+x_list = []
+y_list = []
+
+for j in range(ny):
+    y=myInterval/2+j*myInterval
+    for i in range(nx):
+        x=myInterval/2.+float(i)*myInterval
+        if(copy_point_list[j][i] == 1):
+            x_list.append(x)
+            y_list.append(y)
         
 
-# y_max = find_ymax()
-# print(y_max)
-
-=======
-x = 331
-asd = int((count + 1)/nx)*myInterval
-print(asd)
-x1 = (myInterval/2.+int(x%nx)*myInterval)
-y1 = (myInterval/2.+math.floor(x/nx)*myInterval)
-xx = 997
-print(int(xx/nx))
-x2 = (myInterval/2.+int(xx%nx)*myInterval)
-y2 = (myInterval/2.+math.floor(xx/nx)*myInterval)
-print(x1, x2)
-print(y1, y2)
-t = [x1, x2]
-s = [y1, y2]
-print(points_list)
-print(count_zero)
-plt.plot(t, s, linewidth = 1, color='k')
+# print(points_list)
+# print(count_zero)
+plt.plot(x_list, y_list, linewidth = 1, color='k')
 # ax.grid(False)
->>>>>>> a4e7717c928e4761f571e827e996b97d9c5dd116
 fig.savefig('myImageGrid1')
