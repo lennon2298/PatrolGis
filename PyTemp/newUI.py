@@ -7,7 +7,7 @@
 # WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import (QFileDialog, QTableWidget, QTableWidgetItem, QVBoxLayout, QGridLayout, QSizePolicy)
+from PyQt5.QtWidgets import (QFileDialog, QTableWidget, QTableWidgetItem, QVBoxLayout, QGridLayout, QSizePolicy, QInputDialog)
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as NavigationToolbar
@@ -170,8 +170,8 @@ class Ui_MainWindow(object):
         self.menuProject.setObjectName("menuProject")
         self.menuEdit = QtWidgets.QMenu(self.menubar)
         self.menuEdit.setObjectName("menuEdit")
-        self.menuLayers = QtWidgets.QMenu(self.menubar)
-        self.menuLayers.setObjectName("menuLayers")
+        self.menuCreatePath = QtWidgets.QMenu(self.menubar)
+        self.menuCreatePath.setObjectName("menuCreatePath")
         self.menuSettings = QtWidgets.QMenu(self.menubar)
         self.menuSettings.setObjectName("menuSettings")
         self.menuHelp = QtWidgets.QMenu(self.menubar)
@@ -182,12 +182,19 @@ class Ui_MainWindow(object):
         MainWindow.setStatusBar(self.statusbar)
         self.menubar.addAction(self.menuProject.menuAction())
         self.menubar.addAction(self.menuEdit.menuAction())
-        self.menubar.addAction(self.menuLayers.menuAction())
+        self.menubar.addAction(self.menuCreatePath.menuAction())
         self.menubar.addAction(self.menuSettings.menuAction())
         self.menubar.addAction(self.menuHelp.menuAction())
-
+        self.menuSplit=QtWidgets.QAction(MainWindow)
+        self.menuSplit.setObjectName("menuSplit")
+        self.menuCreatePath.addAction(self.menuSplit)
         self.retranslateUi(MainWindow)
+        # self.label.setDragEnabled(True)
+        # self.label_2.setDragEnabled(True)
+        # self.label_3.setDragEnabled(True)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
+        
+        
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
@@ -197,8 +204,9 @@ class Ui_MainWindow(object):
         self.label_3.setText(_translate("MainWindow", "Attributes"))
         self.menuProject.setTitle(_translate("MainWindow", "Project"))
         self.menuEdit.setTitle(_translate("MainWindow", "Edit"))
-        self.menuLayers.setTitle(_translate("MainWindow", "Layers"))
+        self.menuCreatePath.setTitle(_translate("MainWindow", "Patrolling"))
         self.menuSettings.setTitle(_translate("MainWindow", "Settings"))
         self.menuHelp.setTitle(_translate("MainWindow", "Help"))
+        self.menuSplit.setText(_translate("MainWindow", "Generate Path"))
 
 import resource_rc
