@@ -15,6 +15,8 @@ import random
 from gis.template import *
 from gis.split import *
 import fiona
+import matplotlib.image as mpimg
+import os.path
 
 
 class MyForm(QMainWindow):
@@ -175,6 +177,7 @@ class MyForm(QMainWindow):
                 # self.fname = url.toEncoded()
             self.c_plot()
             self.get_table()
+            
                         
     def savefile(self):
             try:

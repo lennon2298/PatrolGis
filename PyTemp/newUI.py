@@ -12,6 +12,8 @@ from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from PyQt5.QtCore import QDir, Qt
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as NavigationToolbar
+import matplotlib.image as mpimg
+import os.path
 
 
 class Ui_MainWindow(object):
@@ -76,7 +78,7 @@ class Ui_MainWindow(object):
         self.model.setRootPath("D:\Work\PatrolGIS\PatrolGis")
         self.view=QtWidgets.QTreeView(self.scrollAreaWidgetContents)
         self.view.setModel(self.model)
-        self.view.setRootIndex(self.model.index("D:\Work\PatrolGIS\PatrolGis"))
+        self.view.setRootIndex(self.model.index("../"))
         self.view.setDragEnabled(True)
         self.view.setDragDropMode(QAbstractItemView.InternalMove)
         self.horizontalLayout_4.addWidget(self.listWidget)
