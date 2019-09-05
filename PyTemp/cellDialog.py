@@ -52,7 +52,13 @@ class Ui_cellDialog(QDialog):
         self.canvas1.setParent(self.diaFrame)
         self.gridLayout_2.addWidget(self.canvas1, 0, 0, 1, 1)
         self.gridLayout.addWidget(self.diaFrame, 1, 0, 1, 4)
-
+        self.cancelButtonCd = QtWidgets.QPushButton(cellDialog)
+        self.cancelButtonCd.setObjectName("cancelButtonCd")
+        self.gridLayout.addWidget(self.cancelButtonCd, 3, 2, 2, 1)
+        self.okButtonCd = QtWidgets.QPushButton(cellDialog)
+        self.okButtonCd.setObjectName("okButtonCd")
+        self.gridLayout.addWidget(self.okButtonCd, 2, 2, 1, 1)
+        # self.okButtonCd.resize(40,5)
         self.retranslateUi(cellDialog)
         QtCore.QMetaObject.connectSlotsByName(cellDialog)
 
@@ -61,6 +67,9 @@ class Ui_cellDialog(QDialog):
         cellDialog.setWindowTitle(_translate("cellDialog", "Enter Cell Data"))
         self.startLabel.setText(_translate("cellDialog", "Starting Cell"))
         self.endLabel.setText(_translate("cellDialog", "Ending Cell"))
+        self.cancelButtonCd.setText(_translate("cellDialog", "Cancel"))
+        self.okButtonCd.setText(_translate("cellDialog", "Ok"))
+
 
     def __init__(self, parent):
         super().__init__(parent)

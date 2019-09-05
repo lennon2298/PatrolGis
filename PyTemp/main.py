@@ -28,6 +28,7 @@ class MyForm(QMainWindow):
         # self.ui.setAcceptDrops(True)
         self.ui.frame_3.setAcceptDrops(True)
         self.cd = Ui_cellDialog(self)
+        self.cd.cancelButtonCd.clicked.connect(self.cd.close)
         # self.ui.setDragDropMode(QAbstractItemView.InternalMove)
         
 
@@ -107,7 +108,7 @@ class MyForm(QMainWindow):
     def showCellDialog(self):
         self.cd.show()
 
-
+               
 
     def getFile(self):
             
