@@ -22,7 +22,7 @@ class MyForm(QMainWindow):
         self.ui.openButton.clicked.connect(self.getFile)
         self.ui.saveButton.clicked.connect(self.savefile)
         self.ui.saveasButton.clicked.connect(self.saveasfile)
-        self.ui.menuSplit.triggered.connect(self.showDialog)
+        self.ui.menuCreatePath.triggered.connect(self.showDialog)
         self.setAcceptDrops(True)
         # self.setDragDropMode(QAbstractItemView.InternalMove)
         # self.ui.setAcceptDrops(True)
@@ -31,9 +31,7 @@ class MyForm(QMainWindow):
         self.cd.cancelButtonCd.clicked.connect(self.cd.close)
         # self.ui.setDragDropMode(QAbstractItemView.InternalMove)
         
-
-        
-    
+  
         
     def c_plot(self):
         # self.f_name = name
