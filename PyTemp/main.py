@@ -14,6 +14,7 @@ import earthpy as et
 import random
 from gis.template import *
 from gis.split import *
+from gis.test import *
 import fiona
 import matplotlib.image as mpimg
 import os.path
@@ -138,7 +139,13 @@ class MyForm(QMainWindow):
         print("is it working")
         self.ui.canvas.draw()
        
-    def showCellDialog(self):
+    def showCellDialog(self, text):
+        self.path = 'beat' + str(text) + '.png'
+        print(self.path)
+        self.beat_path = PathGeneration(self.path)
+        self.beat_path.add_grid()
+        self.beat_path.cal_path(204, 487)
+        self.beat_path.draw_path()
         self.cd.show()
 
                
@@ -203,7 +210,7 @@ class MyForm(QMainWindow):
                 'Beat Region Number:')
         
             if ok:
-                self.showCellDialog()
+                self.showCellDialog(text)
 
                 
 
