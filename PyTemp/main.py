@@ -3,6 +3,7 @@ from PyQt5.QtWidgets import (QPushButton, QWidget, QLineEdit, QApplication, QMai
 from resource_rc import *
 import sys
 from newUI import Ui_MainWindow
+from cellDialog import Ui_cellDialog
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as NavigationToolbar
 import matplotlib.pyplot as plt
@@ -26,7 +27,10 @@ class MyForm(QMainWindow):
         # self.setDragDropMode(QAbstractItemView.InternalMove)
         # self.ui.setAcceptDrops(True)
         self.ui.frame_3.setAcceptDrops(True)
+        self.cd = Ui_cellDialog(self)
         # self.ui.setDragDropMode(QAbstractItemView.InternalMove)
+        
+
         
     
         
@@ -100,6 +104,10 @@ class MyForm(QMainWindow):
         print("is it working")
         self.ui.canvas.draw()
        
+    def showCellDialog(self):
+        self.cd.show()
+
+
 
     def getFile(self):
             
@@ -177,9 +185,9 @@ class MyForm(QMainWindow):
                 'Beat Region Number:')
         
             if ok:
-             self.ui.listWidget_3.clear()
-             self.ui.listWidget_3.addItems(list(text))
+                self.showCellDialog()
 
+                
 
     
             
