@@ -189,27 +189,10 @@ class MyForm(QMainWindow):
                 print(sys.exc_info()[0], "Excpetion Caught")
 
     def get_table(self):
-            # self.ui.tableWidget.setRowCount(4)
-            self.ui.tableWidget.setColumnCount(1)
+
             self.ui.listWidget.clear()
             self.ui.listWidget.addItems(list_of_shp_files)
-            # self.ui.listWidget_3.clear()
-            # self.ui.listWidget_3.addItems(self.shape_file)
-            # self.ui.tableWidget.setColumnCount(self.shape_file.colCount())
-            # self.ui.tableWidget.setRowCount(self.shape_file.rowCount())
-            rowPos=self.ui.tableWidget.rowCount()
-            self.ui.tableWidget.insertRow(rowPos)
-
-            # self.ui.tableWidget.addItems(self.shape_file) 
-            # print(shp_attributes)
-            self.ui.tableWidget.setItem(rowPos,0,QTableWidgetItem(str(shp_attributes[0])))
-            # self.ui.tableWidget.setItem(rowPos,0,QTableWidgetItem(shp_attributes)
-            # self.ui.tableWidget.setItem(1,0, QTableWidgetItem(self.shape_file.readline())
-            # self.ui.tableWidget.setItem(1,1, QTableWidgetItem("Cell (2,2)"))
-            # self.ui.tableWidget.setItem(2,0, QTableWidgetItem("Cell (3,1)"))
-            # self.ui.tableWidget.setItem(2,1, QTableWidgetItem("Cell (3,2)"))
-            # self.ui.tableWidget.setItem(3,0, QTableWidgetItem("Cell (4,1)"))
-            # self.ui.tableWidget.setItem(3,1, QTableWidgetItem("Cell (4,2)"))
+           
 
     def showDialog(self):
             
