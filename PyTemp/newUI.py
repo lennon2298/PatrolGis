@@ -7,7 +7,7 @@
 # WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import (QFileDialog, QTableWidget, QTableWidgetItem, QVBoxLayout, QGridLayout, QSizePolicy, QInputDialog)
+from PyQt5.QtWidgets import (QFileDialog, QTableWidget, QTableWidgetItem, QVBoxLayout, QGridLayout, QSizePolicy, QInputDialog, QFileSystemModel, QTreeView, QAbstractItemView)
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as NavigationToolbar
@@ -40,9 +40,15 @@ class Ui_MainWindow(object):
         self.scrollAreaWidgetContents_2.setObjectName("scrollAreaWidgetContents_2")
         self.horizontalLayout_4 = QtWidgets.QHBoxLayout(self.scrollAreaWidgetContents_2)
         self.horizontalLayout_4.setObjectName("horizontalLayout_4")
-        self.listWidget_3 = QtWidgets.QListWidget(self.scrollAreaWidgetContents_2)
-        self.listWidget_3.setObjectName("listWidget_3")
-        self.horizontalLayout_4.addWidget(self.listWidget_3)
+        # self.listWidget_3 = QtWidgets.QListWidget(self.scrollAreaWidgetContents_2)
+        # self.listWidget_3.setObjectName("listWidget_3")
+        self.model = QFileSystemModel()
+        self.model.setRootPath("D:\Work\PatrolGIS\PatrolGis")
+        self.view=QtWidgets.QTreeView(self.scrollAreaWidgetContents_2)
+        self.view.setModel(self.model)
+        self.view.setDragEnabled(True)
+        self.view.setDragDropMode(QAbstractItemView.InternalMove)
+        self.horizontalLayout_4.addWidget(self.view)
         self.scrollArea_2.setWidget(self.scrollAreaWidgetContents_2)
         self.gridLayout_3.addWidget(self.scrollArea_2, 1, 0, 1, 1)
         self.label_2 = QtWidgets.QLabel(self.frame_2)

@@ -1,5 +1,6 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import (QPushButton, QWidget, QLineEdit, QApplication, QMainWindow, QFileDialog, QTableWidget, QTableWidgetItem, QListWidgetItem, QListWidget, QInputDialog, QAbstractItemView, QMessageBox)
+from PyQt5.QtWidgets import (QPushButton, QWidget, QLineEdit, QApplication, QMainWindow, QFileDialog, QTableWidget, QTableWidgetItem, QListWidgetItem, QListWidget, QInputDialog, QAbstractItemView, QMessageBox, QFileSystemModel, QTreeView)
+from PyQt5.QtCore import QDir, Qt
 from resource_rc import *
 import sys
 from newUI import Ui_MainWindow
@@ -47,16 +48,19 @@ class MyForm(QMainWindow):
                     self.beat.cal_area()
                     self.beat.split()
                     print("Split done right")
-                    # msg = QMessageBox()
-                    # msg.setIcon(QMessageBox.Information)
+                    ok = QMessageBox.about(self, ' ', "Beats Successfully Split")
+                    # ok.setIcon(QMessageBox.Information)
                     # msg.setText("Beats Successfully Split!")
                     # msg.show()
                 else:
                     raise ValueError("No BEAT file") 
+                    
         except ValueError as e:
             print(e)
+            ok = QMessageBox.about(self, ' ', "No BEAT file")
         except:
             print("Something went wrong, Try uploading a BEAT file")
+            ok = QMessageBox.about(self, "Something Went Wrong", "Try uploading a BEAT file")
 
         
             
@@ -189,8 +193,8 @@ class MyForm(QMainWindow):
             self.ui.tableWidget.setColumnCount(1)
             self.ui.listWidget.clear()
             self.ui.listWidget.addItems(list_of_shp_files)
-            self.ui.listWidget_3.clear()
-            self.ui.listWidget_3.addItems(self.shape_file)
+            # self.ui.listWidget_3.clear()
+            # self.ui.listWidget_3.addItems(self.shape_file)
             # self.ui.tableWidget.setColumnCount(self.shape_file.colCount())
             # self.ui.tableWidget.setRowCount(self.shape_file.rowCount())
             rowPos=self.ui.tableWidget.rowCount()
