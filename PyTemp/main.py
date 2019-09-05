@@ -1,5 +1,5 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import (QPushButton, QWidget, QLineEdit, QApplication, QMainWindow, QFileDialog, QTableWidget, QTableWidgetItem, QListWidgetItem, QListWidget, QInputDialog, QAbstractItemView)
+from PyQt5.QtWidgets import (QPushButton, QWidget, QLineEdit, QApplication, QMainWindow, QFileDialog, QTableWidget, QTableWidgetItem, QListWidgetItem, QListWidget, QInputDialog, QAbstractItemView, QMessageBox)
 from resource_rc import *
 import sys
 from newUI import Ui_MainWindow
@@ -12,9 +12,12 @@ import os
 import earthpy as et
 import random
 from gis.template import *
+from gis.split import *
 import fiona
 
+
 class MyForm(QMainWindow):
+
     def __init__(self, parent=None):
         QWidget.__init__(self, parent)
         self.ui = Ui_MainWindow()
@@ -23,6 +26,7 @@ class MyForm(QMainWindow):
         self.ui.saveButton.clicked.connect(self.savefile)
         self.ui.saveasButton.clicked.connect(self.saveasfile)
         self.ui.menuCreatePath.triggered.connect(self.showDialog)
+        self.ui.menuSplit.triggered.connect(self.split_beat)
         self.setAcceptDrops(True)
         # self.setDragDropMode(QAbstractItemView.InternalMove)
         # self.ui.setAcceptDrops(True)
@@ -30,8 +34,32 @@ class MyForm(QMainWindow):
         self.cd = Ui_cellDialog(self)
         self.cd.cancelButtonCd.clicked.connect(self.cd.close)
         # self.ui.setDragDropMode(QAbstractItemView.InternalMove)
+
+     # INIT BEAT FILE SPLIT    
+    def split_beat(self):
+        try:
+            if list_of_shp_files is None:
+                raise ValueError("Please upload a file")
+            else:
+                self.f_name = list_of_shp_files[len(list_of_shp_files)-1]
+                if "BEAT.shp" in self.f_name:
+                    self.beat = SplitBeatFile(self.f_name)
+                    self.beat.cal_area()
+                    self.beat.split()
+                    print("Split done right")
+                    # msg = QMessageBox()
+                    # msg.setIcon(QMessageBox.Information)
+                    # msg.setText("Beats Successfully Split!")
+                    # msg.show()
+                else:
+                    raise ValueError("No BEAT file") 
+        except ValueError as e:
+            print(e)
+        except:
+            print("Something went wrong, Try uploading a BEAT file")
+
         
-  
+            
         
     def c_plot(self):
         # self.f_name = name
@@ -41,6 +69,8 @@ class MyForm(QMainWindow):
         self.ui.figure.clear()
         ax = self.ui.figure.add_subplot(111)
         ax.axis('off')
+        print(list_of_shp_files)
+        print(list_of_shp_files[:-1])
         try:
             for i in range(len(list_of_shp_files)):
                 # print(i)
@@ -55,7 +85,6 @@ class MyForm(QMainWindow):
                 # PROCESSING FOR ATTRIBUTE
                 prop_keys_list = []
                 prop_attr_list = []
-
                 # RUNNING BOTH LOOPS PARALLEL
                 
 
@@ -73,7 +102,7 @@ class MyForm(QMainWindow):
 
                 if self.shape_file.crs['init'] != 'epsg:32644':
                     print("work")
-                    # print(self.shape_file.crs['init'])
+                    # print(self.shape_file.private variables in pythoncrs['init'])
                     self.data_proj = self.shape_file.copy()
                     self.data_proj['geometry'] = self.data_proj['geometry'].to_crs(epsg=32644)
                 else:

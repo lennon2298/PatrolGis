@@ -8,8 +8,8 @@ import math
 # Open image file
 image = Image.open('./beat25.png')
 
-# Open image file
-image = Image.open('.\\beat25.png')
+# # Open image file
+# image = Image.open('.\\beat25.png')
 my_dpi=54
 # print(type(image))
 pix = image.load()
@@ -152,7 +152,7 @@ def reverse_print_data():
         print("\n")
 
 # print_data()
-cal_path(412, 700)
+cal_path(565, 769)
 reverse_print_data()
 # if area_check(412):
 #     print("calculating path")
