@@ -1,6 +1,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import (QPushButton, QWidget, QLineEdit, QApplication, QMainWindow, QFileDialog, QTableWidget, QTableWidgetItem, QListWidgetItem, QListWidget, QInputDialog, QAbstractItemView, QMessageBox, QFileSystemModel, QTreeView)
 from PyQt5.QtCore import QDir, Qt
+from PyQt5.QtGui import QPixmap
 from resource_rc import *
 import sys
 from newUI import Ui_MainWindow
@@ -10,6 +11,7 @@ from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as Navigatio
 import matplotlib.pyplot as plt
 import geopandas as gpd
 import os
+from matplotlib import cm as cmaps
 import earthpy as et
 import random
 from gis.template import *
@@ -140,13 +142,22 @@ class MyForm(QMainWindow):
         self.ui.canvas.draw()
        
     def showCellDialog(self, text):
-        self.path = 'beat' + str(text) + '.png'
-        print(self.path)
-        self.beat_path = PathGeneration(self.path)
-        self.beat_path.add_grid()
-        self.beat_path.cal_path(204, 487)
-        self.beat_path.draw_path()
-        self.cd.show()
+        try:
+            self.cd.view1.clear()
+            self.path = 'beat' + str(text) + '.png'
+            print(self.path)
+            self.beat_path = PathGeneration(self.path)
+            self.beat_path.add_grid()
+            self.beat_path.cal_path(204, 487)
+            self.beat_path.draw_path()
+            self.cd.show()
+            pixmap= QPixmap('./newGrid.png')
+            grap= QtWidgets.QGraphicsPixmapItem(pixmap)
+            self.cd.view1.addItem(grap)
+            self.cd.canvas1.show()
+        except:
+            print("Error")
+            ok = QMessageBox.about(self, ' ', "File not iterable")
 
                
 
@@ -154,7 +165,7 @@ class MyForm(QMainWindow):
             
             try:
                 #self.fname = ""
-                self.fname = QFileDialog.getOpenFileName(self,'Open File','D:\Work\Basemaps\Basemaps',"Shape Files (*.shp)")
+                self.fname = QFileDialog.getOpenFileName(self,'Open File','D:\Work\Basemaps\Basemaps', "Shape Files (*.shp) ;; Image Files (*.png,*.jpg)")
                 #print(self.fname[0])
                 if self.fname is not None:
                     if self.fname[0] != "":
@@ -177,13 +188,14 @@ class MyForm(QMainWindow):
 
 
     def dropEvent(self, event):
-            # for url in event.mimeData().urls():
+           
             # self.fname = QtCore.QUrl.fileName(event.mimeData().urls())
-            for url in event.mimeData().urls():
+            for url in event.mimeData().urls(): 
                 list_of_shp_files.append(url.toLocalFile())
-                # self.fname = url.toEncoded()
             self.c_plot()
             self.get_table()
+            
+
             
                         
     def savefile(self):
