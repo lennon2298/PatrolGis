@@ -173,6 +173,25 @@ class PathGeneration():
     #                 print("Found")
     #                 return count
 
+    def draw_path_no_grid(self):
+        x_list = []
+        y_list = []
+
+        for j in range(self.ny):
+            y=self.myInterval/2+j*self.myInterval
+            for i in range(self.nx):
+                x=self.myInterval/2.+float(i)*self.myInterval
+                if(self.copy_point_list[j][i] == 1):
+                    x_list.append(x)
+                    y_list.append(y)
+                
+
+        # print(points_list)
+        # print(count_zero)
+        plt.plot(x_list, y_list, linewidth = 1, color='k')
+        # ax.grid(False)
+        self.fig.savefig('Grid')
+
     def draw_path(self):
         x_list = []
         y_list = []
@@ -194,6 +213,11 @@ class PathGeneration():
 
 
 # beat_path = PathGeneration('../beat25.png')
+# beat_path.add_grid()
+# # beat_path.cal_path(260, 770)
+# beat_path.draw_path_no_grid()
+
+
 # beat_path.add_grid()
 # beat_path.cal_path(260, 770)
 # beat_path.draw_path()

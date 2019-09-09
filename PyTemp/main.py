@@ -24,6 +24,9 @@ import os.path
 
 class MyForm(QMainWindow):
 
+    # VARIABLES
+
+    __text = int()
     def __init__(self, parent=None):
         QWidget.__init__(self, parent)
         self.ui = Ui_MainWindow()
@@ -38,6 +41,9 @@ class MyForm(QMainWindow):
         # self.ui.setAcceptDrops(True)
         self.ui.frame_3.setAcceptDrops(True)
         self.cd = Ui_cellDialog(self)
+        # print(self.cd.startCell.text())
+        # print(self.cd.endCell.text())
+        self.cd.okButtonCd.clicked.connect(self.get_path_with_grid)
         self.cd.cancelButtonCd.clicked.connect(self.cd.close)
         # self.ui.setDragDropMode(QAbstractItemView.InternalMove)
 
@@ -140,18 +146,46 @@ class MyForm(QMainWindow):
             del list_of_shp_files[-1]
         print("is it working")
         self.ui.canvas.draw()
-       
-    def showCellDialog(self, text):
+
+    def get_path_with_grid(self):
+        print(type(self.cd.startCell.text()))
+        print(self.cd.endCell.text())
+        self.start = self.cd.startCell.text()
+        print(type(self.start))
+        self.end = self.cd.endCell.text()
+
+        print("WORKING")
+        print(self.__text)
         try:
             self.cd.view1.clear()
-            self.path = 'beat' + str(text) + '.png'
+            self.path = 'beat' + str(self.__text) + '.png'
             print(self.path)
             self.beat_path = PathGeneration(self.path)
             self.beat_path.add_grid()
-            self.beat_path.cal_path(204, 487)
+            self.beat_path.cal_path(int(self.start), int(self.end))
             self.beat_path.draw_path()
             self.cd.show()
             pixmap= QPixmap('./newGrid.png')
+            grap= QtWidgets.QGraphicsPixmapItem(pixmap)
+            self.cd.view1.addItem(grap)
+            self.cd.canvas1.show()
+        except Exception as e:
+            print(e)
+            print("Error")
+            ok = QMessageBox.about(self, ' ', "File not iterable")
+
+    def showCellDialog(self):
+        
+        try:
+            self.cd.view1.clear()
+            self.path = 'beat' + str(self.__text) + '.png'
+            print(self.path)
+            self.beat_path = PathGeneration(self.path)
+            self.beat_path.add_grid()
+            # self.beat_path.cal_path(204, 487)
+            self.beat_path.draw_path_no_grid()
+            self.cd.show()
+            pixmap= QPixmap('./Grid.png')
             grap= QtWidgets.QGraphicsPixmapItem(pixmap)
             self.cd.view1.addItem(grap)
             self.cd.canvas1.show()
@@ -218,11 +252,12 @@ class MyForm(QMainWindow):
 
     def showDialog(self):
             
-            text, ok = QInputDialog.getText(self, 'Enter Beat Region', 
+            self.__text, ok = QInputDialog.getText(self, 'Enter Beat Region', 
                 'Beat Region Number:')
-        
+    
             if ok:
-                self.showCellDialog(text)
+                self.showCellDialog()
+                
 
                 
 
