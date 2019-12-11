@@ -6,6 +6,7 @@ from resource_rc import *
 import sys
 from newUI import Ui_MainWindow
 from cellDialog import Ui_cellDialog
+from pathDia import Ui_Dialog
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as NavigationToolbar
 import matplotlib.pyplot as plt
@@ -41,10 +42,13 @@ class MyForm(QMainWindow):
         # self.ui.setAcceptDrops(True)
         self.ui.frame_3.setAcceptDrops(True)
         self.cd = Ui_cellDialog(self)
+        self.pd = Ui_Dialog(self)
         # print(self.cd.startCell.text())
         # print(self.cd.endCell.text())
         self.cd.okButtonCd.clicked.connect(self.get_path_with_grid)
         self.cd.cancelButtonCd.clicked.connect(self.cd.close)
+        self.pd.pushButton.clicked.connect(self.showCellDialog)
+        
         # self.ui.setDragDropMode(QAbstractItemView.InternalMove)
 
      # INIT BEAT FILE SPLIT    
@@ -220,6 +224,8 @@ class MyForm(QMainWindow):
         else:
             event.ignore()
 
+ 
+    
 
     def dropEvent(self, event):
            
@@ -256,10 +262,11 @@ class MyForm(QMainWindow):
                 'Beat Region Number:')
     
             if ok:
-                self.showCellDialog()
+                self.showChooseDialog()
                 
 
-                
+    def showChooseDialog(self):
+            self.pd.show()            
 
     
             

@@ -9,5 +9,7 @@
     <file>res/hand4.ico</file>
     <file>res/undo4.ico</file>
     <file>res/mainLogo4.ico</file>
+    <file>res/circle.ico</file>
+    <file>res/line.ico</file>
 </qresource>
 </RCC>
