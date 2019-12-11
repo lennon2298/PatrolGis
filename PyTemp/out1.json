@@ -1,0 +1,33 @@
+{
+"type": "FeatureCollection",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "Name": "22", "Descr": "KISLI" }, "geometry": { "type": "Point", "coordinates": [ 80.550833333333301, 22.300361111111101 ] } },
+{ "type": "Feature", "properties": { "Name": "21", "Descr": "KHATIA" }, "geometry": { "type": "Point", "coordinates": [ 80.52226424, 22.30866194 ] } },
+{ "type": "Feature", "properties": { "Name": "09", "Descr": "SONDAR" }, "geometry": { "type": "Point", "coordinates": [ 80.53881347, 22.36583591 ] } },
+{ "type": "Feature", "properties": { "Name": "07", "Descr": "PIPERDARRA" }, "geometry": { "type": "Point", "coordinates": [ 80.514666666666699, 22.400833333333299 ] } },
+{ "type": "Feature", "properties": { "Name": "26", "Descr": "KANHA" }, "geometry": { "type": "Point", "coordinates": [ 80.61879694, 22.28269279 ] } },
+{ "type": "Feature", "properties": { "Name": "62", "Descr": "BAMNIDADAR" }, "geometry": { "type": "Point", "coordinates": [ 80.69718182, 22.20332623 ] } },
+{ "type": "Feature", "properties": { "Name": "66", "Descr": "MUKKI" }, "geometry": { "type": "Point", "coordinates": [ 80.67268789, 22.15478361 ] } },
+{ "type": "Feature", "properties": { "Name": "0101", "Descr": "SUPKHAR" }, "geometry": { "type": "Point", "coordinates": [ 80.93923509, 22.18548417 ] } },
+{ "type": "Feature", "properties": { "Name": "25", "Descr": "INDRI" }, "geometry": { "type": "Point", "coordinates": [ 80.52417397, 22.26885796 ] } },
+{ "type": "Feature", "properties": { "Name": "04", "Descr": "SARHINAKAN" }, "geometry": { "type": "Point", "coordinates": [ 80.65628886, 22.39774883 ] } },
+{ "type": "Feature", "properties": { "Name": "15", "Descr": "SONF-II" }, "geometry": { "type": "Point", "coordinates": [ 80.617416666666699, 22.338333333333299 ] } },
+{ "type": "Feature", "properties": { "Name": "34", "Descr": "KERAGHAT" }, "geometry": { "type": "Point", "coordinates": [ 80.70263207, 22.26737201 ] } },
+{ "type": "Feature", "properties": { "Name": "30", "Descr": "JHAPUL" }, "geometry": { "type": "Point", "coordinates": [ 80.7491523, 22.30597436 ] } },
+{ "type": "Feature", "properties": { "Name": "02", "Descr": "KARIWAH" }, "geometry": { "type": "Point", "coordinates": [ 80.57751775, 22.41369188 ] } },
+{ "type": "Feature", "properties": { "Name": "11", "Descr": "BHILWANI" }, "geometry": { "type": "Point", "coordinates": [ 80.68695188, 22.35462427 ] } },
+{ "type": "Feature", "properties": { "Name": "68", "Descr": "SAMNAPUR" }, "geometry": { "type": "Point", "coordinates": [ 80.70382297, 22.1425581 ] } },
+{ "type": "Feature", "properties": { "Name": "54", "Descr": "SONDAR" }, "geometry": { "type": "Point", "coordinates": [ 80.623694444444396, 22.1843055555556 ] } },
+{ "type": "Feature", "properties": { "Name": "56", "Descr": "KHAPA" }, "geometry": { "type": "Point", "coordinates": [ 80.5804199, 22.19533861 ] } },
+{ "type": "Feature", "properties": { "Name": "0117", "Descr": "KUGAON" }, "geometry": { "type": "Point", "coordinates": [ 80.748527777777795, 22.262138888888899 ] } },
+{ "type": "Feature", "properties": { "Name": "74", "Descr": "GADAGHAT" }, "geometry": { "type": "Point", "coordinates": [ 80.7648325, 22.13344932 ] } },
+{ "type": "Feature", "properties": { "Name": "82", "Descr": "ADWAR" }, "geometry": { "type": "Point", "coordinates": [ 80.83224714, 22.15943456 ] } },
+{ "type": "Feature", "properties": { "Name": "89", "Descr": "GARHIDADAR" }, "geometry": { "type": "Point", "coordinates": [ 80.88746309, 22.18216896 ] } },
+{ "type": "Feature", "properties": { "Name": "88", "Descr": "SUKDI" }, "geometry": { "type": "Point", "coordinates": [ 80.90442002, 22.12715685 ] } },
+{ "type": "Feature", "properties": { "Name": "0104", "Descr": "JOKPANI" }, "geometry": { "type": "Point", "coordinates": [ 80.941751, 22.22344816 ] } },
+{ "type": "Feature", "properties": { "Name": "94", "Descr": "PATUA" }, "geometry": { "type": "Point", "coordinates": [ 80.979555555555606, 22.101222222222201 ] } },
+{ "type": "Feature", "properties": { "Name": "0109", "Descr": "KAMKODADAR" }, "geometry": { "type": "Point", "coordinates": [ 81.01701915, 22.19917417 ] } },
+{ "type": "Feature", "properties": { "Name": "0116", "Descr": "JANGLIKHEDA" }, "geometry": { "type": "Point", "coordinates": [ 81.000833333333304, 22.2841666666667 ] } }
+]
+}

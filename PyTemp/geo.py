@@ -1,7 +1,7 @@
 import shapefile
 from json import dumps 
 
-reader = shapefile.Reader("D:/Work/PatrolGIS/PatrolGis/shapefiles/Wireless_station.shp")
+reader = shapefile.Reader("./Wireless_station.shp")
 fields = reader.fields[1:]
 field_names = [field[0] for field in fields]
 buffer = []
