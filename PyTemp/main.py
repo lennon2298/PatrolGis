@@ -18,6 +18,7 @@ import random
 from gis.template import *
 from gis.split import *
 from gis.test import *
+from gis.shapefile_to_geojson import *
 import fiona
 import matplotlib.image as mpimg
 import os.path
@@ -36,7 +37,7 @@ class MyForm(QMainWindow):
         self.ui.saveButton.clicked.connect(self.savefile)
         self.ui.saveasButton.clicked.connect(self.saveasfile)
         self.ui.menuCreatePath.triggered.connect(self.showDialog)
-        self.ui.menuSplit.triggered.connect(self.split_beat)
+        self.ui.menuSplit.triggered.connect(self.display_beat)
         self.setAcceptDrops(True)
         # self.setDragDropMode(QAbstractItemView.InternalMove)
         # self.ui.setAcceptDrops(True)
@@ -77,12 +78,26 @@ class MyForm(QMainWindow):
             print("Something went wrong, Try uploading a BEAT file")
             ok = QMessageBox.about(self, "Something Went Wrong", "Try uploading a BEAT file")
 
-        
-            
-        
+    def display_beat(self):
+        try:
+            matchers = ["BEAT.shp", "Wireless_station.shp"]
+            matching = [s for s in list_of_shp_files if any(xs in s for xs in matchers)]
+            if matching is None or len(matching)==0:
+                raise ValueError("Please upload 'BEAT.shp' and 'Wireless_station.shp'.")
+            else:
+                file_json = SaveToGeoJSON()
+                for i in matching:
+                    file_save_name = file_json.file_name()
+                    file_json.save(i, file_save_name)
+                print("files saved")
+                merge_obj = MergeGeoJSON()
+                merge_obj.save()
+                print("File merged")
+                # ok = QMessageBox.about(self, ' ', "File saved")
+        except ValueError as e:
+            print(e)
+
     def c_plot(self):
-        # self.f_name = name
-        # print(self.f_name)
         shp_attributes.clear()
         random_col()
         self.ui.figure.clear()

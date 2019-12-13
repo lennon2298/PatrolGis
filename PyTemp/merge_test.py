@@ -3,6 +3,7 @@ import geojson
 
 with open('./out1.json') as geojson1:
     poly1_geojson = json.load(geojson1)
+    print(poly1_geojson)
 
 with open('./out2.json') as geojson2:
     poly2_geojson = json.load(geojson2)
