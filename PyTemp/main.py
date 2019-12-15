@@ -37,7 +37,7 @@ class MyForm(QMainWindow):
         self.ui.openButton.clicked.connect(self.getFile)
         self.ui.saveButton.clicked.connect(self.savefile)
         self.ui.saveasButton.clicked.connect(self.saveasfile)
-        self.ui.menuCreatePath.triggered.connect(self.showDialog)
+        self.ui.menuCreatePath.triggered.connect(self.showChooseDialog)
         self.ui.menuSplit.triggered.connect(self.create_grid)
         self.setAcceptDrops(True)
         # self.setDragDropMode(QAbstractItemView.InternalMove)
