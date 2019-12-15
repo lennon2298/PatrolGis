@@ -101,6 +101,7 @@ class MyForm(QMainWindow):
         f_name = list_of_shp_files[-1]
         print(f_name)
         poly = gpd.read_file(f_name)
+        # print(poly['geometry'][0].coords.xy)
         global xmin,ymin,xmax,ymax
         xmin,ymin,xmax,ymax = poly.total_bounds
         print(xmin,ymin,xmax,ymax,length,width)
@@ -134,9 +135,9 @@ class MyForm(QMainWindow):
         grid.to_file('./grid.shp')
         print("here")
         # print(grid)
-        list_of_shp_files.append('./grid.shp')
-        self.c_plot()
-        self.get_table()
+        # list_of_shp_files.append('./grid.shp')
+        # self.c_plot()
+        # self.get_table()
 
     def get_cell(self, lat, long):
         x_pos = int(np.ceil((long-ymin) /  length))
@@ -208,6 +209,16 @@ class MyForm(QMainWindow):
                                figsize=(60, 60),
                                markersize=45
                               )
+
+                if(self.data_proj['geometry'][0].type == 'Point'):
+                    self.data_proj.apply(lambda x: ax.annotate(s='P ' + x.Name, xy=x.geometry.centroid.coords[0], 
+                        ha='center', va='bottom', weight='bold'),axis=1)
+                    print(self.data_proj.Name)
+                    # # print("ewsedrtfygvhbjbh")
+                    # for idx, row in c.iterrows():
+                    #     print(row)
+                    #     self.data_proj.annotate(s='P' + (idx + 1), xy=row.geometry.centroid.coords[0],
+                    #                 horizontalalignment='center')
 
 
                 for feat in fiona.open(self.f_name):
