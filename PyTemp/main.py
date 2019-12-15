@@ -13,7 +13,7 @@ import matplotlib.pyplot as plt
 import geopandas as gpd
 import os
 from matplotlib import cm as cmaps
-import earthpy as et
+# import earthpy as et
 import random
 from gis.template import *
 from gis.split import *
@@ -22,7 +22,7 @@ from gis.shapefile_to_geojson import *
 import fiona
 import matplotlib.image as mpimg
 import os.path
-
+from shapely.geometry import Polygon
 
 class MyForm(QMainWindow):
 
@@ -37,7 +37,7 @@ class MyForm(QMainWindow):
         self.ui.saveButton.clicked.connect(self.savefile)
         self.ui.saveasButton.clicked.connect(self.saveasfile)
         self.ui.menuCreatePath.triggered.connect(self.showDialog)
-        self.ui.menuSplit.triggered.connect(self.display_beat)
+        self.ui.menuSplit.triggered.connect(self.create_grid)
         self.setAcceptDrops(True)
         # self.setDragDropMode(QAbstractItemView.InternalMove)
         # self.ui.setAcceptDrops(True)
@@ -97,6 +97,49 @@ class MyForm(QMainWindow):
         except ValueError as e:
             print(e)
 
+    def create_grid(self):
+        f_name = list_of_shp_files[-1]
+        print(f_name)
+        poly = gpd.read_file(f_name)
+        global xmin,ymin,xmax,ymax
+        xmin,ymin,xmax,ymax = poly.total_bounds
+        print(xmin,ymin,xmax,ymax)
+        length = 0.005 ##### here
+        width = 0.005 ##### here
+        rows = int(np.ceil((ymax-ymin) /  length))
+        cols = int(np.ceil((xmax-xmin) / width))
+        XleftOrigin = xmin
+        XrightOrigin = xmin + width
+        YtopOrigin = ymax
+        YbottomOrigin = ymax- length
+        polygons = []
+        new = []
+        print(type(grid_mat))
+        for i in range(cols):
+            Ytop = YtopOrigin
+            Ybottom =YbottomOrigin
+            for j in range(rows):
+                polygons.append(Polygon([(XleftOrigin, Ytop), (XrightOrigin, Ytop), (XrightOrigin, Ybottom), (XleftOrigin, Ybottom)])) 
+                Ytop = Ytop - length
+                Ybottom = Ybottom - length
+                new.append(0)
+            XleftOrigin = XleftOrigin + width
+            XrightOrigin = XrightOrigin + width
+            grid_mat.append(new)
+        
+        print(len(grid_mat))
+
+        grid = gpd.GeoDataFrame({'geometry':polygons})
+        # grid.to_file('grid.shp')
+        # grid['geometry'] = grid['geometry'].to_crs(epsg=32644)
+        grid.crs = {'init' :'epsg:4326'}
+        grid.to_file('./grid.shp')
+        print("here")
+        print(grid)
+        list_of_shp_files.append('./grid.shp')
+        self.c_plot()
+        self.get_table()
+
     def c_plot(self):
         shp_attributes.clear()
         random_col()
@@ -151,6 +194,7 @@ class MyForm(QMainWindow):
                                markersize=45
                               )
 
+
                 for feat in fiona.open(self.f_name):
                     prop_keys_list = feat.keys()
 
@@ -164,6 +208,7 @@ class MyForm(QMainWindow):
             #print("ERROR!!!")
             del list_of_shp_files[-1]
         print("is it working")
+        print(xmin,ymin,xmax,ymax)
         self.ui.canvas.draw()
 
     def get_path_with_grid(self):

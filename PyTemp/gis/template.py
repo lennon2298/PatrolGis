@@ -10,6 +10,9 @@ list_of_shp_files = list()
 # LIST OF ATTRIBUTES OF SHAPE FILES
 shp_attributes = list ()
 
+grid_mat = list()
+
+xmin,ymin,xmax,ymax = 0, 0, 0, 0
 
 # LIST OF EDGECOLORS
 color_list = list()
