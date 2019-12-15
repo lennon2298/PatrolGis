@@ -13,6 +13,8 @@ shp_attributes = list ()
 grid_mat = list()
 
 xmin,ymin,xmax,ymax = 0, 0, 0, 0
+length = 0.005
+width = 0.005
 
 # LIST OF EDGECOLORS
 color_list = list()

@@ -103,9 +103,7 @@ class MyForm(QMainWindow):
         poly = gpd.read_file(f_name)
         global xmin,ymin,xmax,ymax
         xmin,ymin,xmax,ymax = poly.total_bounds
-        print(xmin,ymin,xmax,ymax)
-        length = 0.005 ##### here
-        width = 0.005 ##### here
+        print(xmin,ymin,xmax,ymax,length,width)
         rows = int(np.ceil((ymax-ymin) /  length))
         cols = int(np.ceil((xmax-xmin) / width))
         XleftOrigin = xmin
@@ -139,6 +137,11 @@ class MyForm(QMainWindow):
         list_of_shp_files.append('./grid.shp')
         self.c_plot()
         self.get_table()
+
+    def get_cell(self, lat, long):
+        x_pos = int(np.ceil((long-ymin) /  length))
+        y_pos = int(np.ceil((lat-xmin) / width))
+        return x_pos, y_pos
 
     def c_plot(self):
         shp_attributes.clear()
