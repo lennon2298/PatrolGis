@@ -12,8 +12,8 @@ shp_attributes = list ()
 grid_mat = []
 new = []
 # grid_mat = np.ones((700,700), dtype=int)
-for i in range(700):
-    for j in range(700):
+for i in range(110):
+    for j in range(110):
         new.append(1)
     grid_mat.append(new)
     new = []

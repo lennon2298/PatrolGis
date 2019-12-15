@@ -123,12 +123,17 @@ class MyForm(QMainWindow):
                 Ytop = Ytop - length
                 Ybottom = Ybottom - length
                 # new.append(0)
-                grid_mat[i][j] = 0
+                grid_mat[j][i] = 0
             XleftOrigin = XleftOrigin + width
             XrightOrigin = XrightOrigin + width
             # grid_mat.append(new)
         
-        print((grid_mat))
+        print(len(grid_mat))
+        print(len(grid_mat[0]))
+        print(rows, cols)
+        f_data = open("data1.txt", "w+")
+        f_data.write(str(grid_mat))
+        f_data.close()
 
         grid = gpd.GeoDataFrame({'geometry':polygons})
         # grid.to_file('grid.shp')
