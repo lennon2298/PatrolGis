@@ -18,6 +18,7 @@ import random
 from gis.template import *
 from gis.split import *
 from gis.test import *
+from gis.algo import *
 from gis.shapefile_to_geojson import *
 import fiona
 import matplotlib.image as mpimg
@@ -125,7 +126,21 @@ class MyForm(QMainWindow):
             XrightOrigin = XrightOrigin + width
             grid_mat.append(new)
         
-        # print((grid_mat))
+        print(len(grid_mat))
+        print(len(grid_mat[0]))
+        f_data = open("data.txt", "w+")
+        f_data.write(str(grid_mat))
+        f_data.close()
+        # grid = np.array(grid_mat)
+
+        # # start point and goal
+        # start = (0,0)
+        # goal = (0,19)
+
+        # route = astar(grid, start, goal)
+        # route = route + [start]
+        # route = route[::-1]
+        # print(route)
 
         grid = gpd.GeoDataFrame({'geometry':polygons})
         # grid.to_file('grid.shp')
@@ -135,8 +150,8 @@ class MyForm(QMainWindow):
         print("here")
         # print(grid)
         list_of_shp_files.append('./grid.shp')
-        self.c_plot()
-        self.get_table()
+        # self.c_plot()
+        # self.get_table()
 
     def get_cell(self, lat, long):
         x_pos = int(np.ceil((long-ymin) /  length))

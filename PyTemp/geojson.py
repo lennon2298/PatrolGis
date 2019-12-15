@@ -1,6 +1,6 @@
 import geopandas as gpd
 
-shape_file = gpd.read_file("D:/Work/Major/PatrolGIS/shapefiles/BEAT.shp")
+shape_file = gpd.read_file("/home/bot/Work/GIS/PatrolGis/shapefiles/BEAT.shp")
 # if shape_file.crs['init'] != 'epsg:32644':
 #     print("work")
 #     # print(self.shape_file.private variables in pythoncrs['init'])
