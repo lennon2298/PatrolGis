@@ -6,6 +6,7 @@ from resource_rc import *
 import sys
 from newUI import Ui_MainWindow
 from cellDialog import Ui_cellDialog
+from cellDia2 import Ui_cellDialog2
 from pathDia import Ui_Dialog
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as NavigationToolbar
@@ -44,13 +45,14 @@ class MyForm(QMainWindow):
         # self.ui.setAcceptDrops(True)
         self.ui.frame_3.setAcceptDrops(True)
         self.cd = Ui_cellDialog(self)
+        self.cd2 = Ui_cellDialog2(self)
         self.pd = Ui_Dialog(self)
         # print(self.cd.startCell.text())
         # print(self.cd.endCell.text())
         self.cd.okButtonCd.clicked.connect(self.get_path_with_grid)
         self.cd.cancelButtonCd.clicked.connect(self.cd.close)
         self.pd.pushButton.clicked.connect(self.showCellDialog)
-        # self.pd.pushButton_2.clicked.connect()
+        self.pd.pushButton_2.clicked.connect(self.showCellDialog2)
         
         # self.ui.setDragDropMode(QAbstractItemView.InternalMove)
 
@@ -105,11 +107,12 @@ class MyForm(QMainWindow):
         poly = gpd.read_file(f_name)
         # print(poly['geometry'][0].coords.xy)
         # print(poly.geometry.centroid.coords[0].x)
-        global xmin,ymin,xmax,ymax
+        global xmin,ymin,xmax,ymax, rows, cols
         xmin,ymin,xmax,ymax = poly.total_bounds
         print(xmin,ymin,xmax,ymax,length,width)
         rows = int(np.ceil((ymax-ymin) /  length))
         cols = int(np.ceil((xmax-xmin) / width))
+        print(rows, cols)
         XleftOrigin = xmin
         XrightOrigin = xmin + width
         YtopOrigin = ymax
@@ -143,16 +146,20 @@ class MyForm(QMainWindow):
         grid.crs = {'init' :'epsg:4326'}
         grid.to_file('./grid.shp')
         print("here")
+        print(self.get_cell(80.6174166666667, 22.3383333333333))
         # print(grid)
         # list_of_shp_files.append('./grid.shp')
         # self.c_plot()
         # self.get_table()
 
-    def get_cell(self, lat, long):
-        x_pos = int(np.ceil((long-ymin) /  length))
-        y_pos = int(np.ceil((lat-xmin) / width))
-        return x_pos, y_pos
-
+    def get_cell(self, g_lat, g_long):
+        print(g_long, ymin)
+        x_pos = int(np.ceil((g_long-ymin) /  length))
+        y_pos = int(np.ceil((g_lat-xmin) / width))
+        print(y_pos)
+        print(x_pos)
+        return (rows - x_pos), y_pos
+    
     def c_plot(self):
         shp_attributes.clear()
         random_col()
@@ -279,21 +286,17 @@ class MyForm(QMainWindow):
     def showCellDialog(self):
         
         try:
-            # self.cd.view1.clear()
-            # self.path = 'beat' + str(self.__text) + '.png'
-            # print(self.path)
-            # self.beat_path = PathGeneration(self.path)
-            # self.beat_path.add_grid()
-            # # self.beat_path.cal_path(204, 487)
-            # self.beat_path.draw_path_no_grid()
             self.cd.show()
-            # pixmap= QPixmap('./Grid.png')
-            # grap= QtWidgets.QGraphicsPixmapItem(pixmap)
-            # self.cd.view1.addItem(grap)
-            # self.cd.canvas1.show()
+            
         except:
             print("Error")
             ok = QMessageBox.about(self, ' ', "File not iterable")
+
+    
+    def showCellDialog2(self):
+        {
+            self.cd2.show()
+        }
 
                
 

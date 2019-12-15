@@ -22,6 +22,8 @@ for i in range(110):
 xmin,ymin,xmax,ymax = 0, 0, 0, 0
 length = 0.005
 width = 0.005
+rows = 0
+cols = 0
 
 # LIST OF EDGECOLORS
 color_list = list()

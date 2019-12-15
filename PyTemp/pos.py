@@ -24,7 +24,7 @@ def get_coordinates(position):
         return False
 
 
-pos1 = get_coordinates("0109")
+pos1 = get_coordinates("09")
 if pos1 == False:
     print("Enter a valid position")
 else:
