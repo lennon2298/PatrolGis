@@ -125,7 +125,7 @@ class MyForm(QMainWindow):
             XrightOrigin = XrightOrigin + width
             grid_mat.append(new)
         
-        print(len(grid_mat))
+        # print((grid_mat))
 
         grid = gpd.GeoDataFrame({'geometry':polygons})
         # grid.to_file('grid.shp')
@@ -133,7 +133,7 @@ class MyForm(QMainWindow):
         grid.crs = {'init' :'epsg:4326'}
         grid.to_file('./grid.shp')
         print("here")
-        print(grid)
+        # print(grid)
         list_of_shp_files.append('./grid.shp')
         self.c_plot()
         self.get_table()
@@ -188,7 +188,19 @@ class MyForm(QMainWindow):
                 else:
                     print("work")
                     self.data_proj = self.shape_file.copy()
-                self.data_proj .plot(categorical=True,
+                # print(self.f_name)
+                if(self.f_name == './grid.shp'):
+                    print("grid plot")
+                    self.data_proj .plot(categorical=True,
+                               ax=ax,
+                               legend=True,
+                               facecolor="none",
+                               edgecolor='black',
+                               figsize=(60, 60),
+                               markersize=45
+                              )
+                else:
+                    self.data_proj .plot(categorical=True,
                                ax=ax,
                                color=color_list[i],
                                legend=True,
