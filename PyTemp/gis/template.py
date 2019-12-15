@@ -9,8 +9,15 @@ list_of_shp_files = list()
 
 # LIST OF ATTRIBUTES OF SHAPE FILES
 shp_attributes = list ()
+grid_mat = []
+new = []
+# grid_mat = np.ones((700,700), dtype=int)
+for i in range(700):
+    for j in range(700):
+        new.append(1)
+    grid_mat.append(new)
+    new = []
 
-grid_mat = np.ones((700,700), dtype=int)
 
 xmin,ymin,xmax,ymax = 0, 0, 0, 0
 length = 0.005
