@@ -50,6 +50,7 @@ class MyForm(QMainWindow):
         self.cd.okButtonCd.clicked.connect(self.get_path_with_grid)
         self.cd.cancelButtonCd.clicked.connect(self.cd.close)
         self.pd.pushButton.clicked.connect(self.showCellDialog)
+        # self.pd.pushButton_2.clicked.connect()
         
         # self.ui.setDragDropMode(QAbstractItemView.InternalMove)
 
@@ -278,18 +279,18 @@ class MyForm(QMainWindow):
     def showCellDialog(self):
         
         try:
-            self.cd.view1.clear()
-            self.path = 'beat' + str(self.__text) + '.png'
-            print(self.path)
-            self.beat_path = PathGeneration(self.path)
-            self.beat_path.add_grid()
-            # self.beat_path.cal_path(204, 487)
-            self.beat_path.draw_path_no_grid()
+            # self.cd.view1.clear()
+            # self.path = 'beat' + str(self.__text) + '.png'
+            # print(self.path)
+            # self.beat_path = PathGeneration(self.path)
+            # self.beat_path.add_grid()
+            # # self.beat_path.cal_path(204, 487)
+            # self.beat_path.draw_path_no_grid()
             self.cd.show()
-            pixmap= QPixmap('./Grid.png')
-            grap= QtWidgets.QGraphicsPixmapItem(pixmap)
-            self.cd.view1.addItem(grap)
-            self.cd.canvas1.show()
+            # pixmap= QPixmap('./Grid.png')
+            # grap= QtWidgets.QGraphicsPixmapItem(pixmap)
+            # self.cd.view1.addItem(grap)
+            # self.cd.canvas1.show()
         except:
             print("Error")
             ok = QMessageBox.about(self, ' ', "File not iterable")
