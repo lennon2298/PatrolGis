@@ -102,6 +102,7 @@ class MyForm(QMainWindow):
         f_name = list_of_shp_files[-1]
         print(f_name)
         poly = gpd.read_file(f_name)
+        # print(poly['geometry'][0].coords.xy)
         global xmin,ymin,xmax,ymax
         xmin,ymin,xmax,ymax = poly.total_bounds
         print(xmin,ymin,xmax,ymax,length,width)
@@ -112,7 +113,7 @@ class MyForm(QMainWindow):
         YtopOrigin = ymax
         YbottomOrigin = ymax- length
         polygons = []
-        new = []
+        # new = []
         print(type(grid_mat))
         for i in range(cols):
             Ytop = YtopOrigin
@@ -121,26 +122,13 @@ class MyForm(QMainWindow):
                 polygons.append(Polygon([(XleftOrigin, Ytop), (XrightOrigin, Ytop), (XrightOrigin, Ybottom), (XleftOrigin, Ybottom)])) 
                 Ytop = Ytop - length
                 Ybottom = Ybottom - length
-                new.append(0)
+                # new.append(0)
+                grid_mat[i][j] = 0
             XleftOrigin = XleftOrigin + width
             XrightOrigin = XrightOrigin + width
-            grid_mat.append(new)
+            # grid_mat.append(new)
         
-        print(len(grid_mat))
-        print(len(grid_mat[0]))
-        f_data = open("data.txt", "w+")
-        f_data.write(str(grid_mat))
-        f_data.close()
-        # grid = np.array(grid_mat)
-
-        # # start point and goal
-        # start = (0,0)
-        # goal = (0,19)
-
-        # route = astar(grid, start, goal)
-        # route = route + [start]
-        # route = route[::-1]
-        # print(route)
+        print((grid_mat))
 
         grid = gpd.GeoDataFrame({'geometry':polygons})
         # grid.to_file('grid.shp')
@@ -149,7 +137,7 @@ class MyForm(QMainWindow):
         grid.to_file('./grid.shp')
         print("here")
         # print(grid)
-        list_of_shp_files.append('./grid.shp')
+        # list_of_shp_files.append('./grid.shp')
         # self.c_plot()
         # self.get_table()
 
@@ -223,6 +211,16 @@ class MyForm(QMainWindow):
                                figsize=(60, 60),
                                markersize=45
                               )
+
+                if(self.data_proj['geometry'][0].type == 'Point'):
+                    self.data_proj.apply(lambda x: ax.annotate(s='P ' + x.Name, xy=x.geometry.centroid.coords[0], 
+                        ha='center', va='bottom', weight='bold'),axis=1)
+                    print(self.data_proj.Name)
+                    # # print("ewsedrtfygvhbjbh")
+                    # for idx, row in c.iterrows():
+                    #     print(row)
+                    #     self.data_proj.annotate(s='P' + (idx + 1), xy=row.geometry.centroid.coords[0],
+                    #                 horizontalalignment='center')
 
 
                 for feat in fiona.open(self.f_name):
