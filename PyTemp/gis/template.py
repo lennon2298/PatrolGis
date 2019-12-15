@@ -1,7 +1,7 @@
 # LIST OF GLOBAL VARIABLES
 
 import randomcolor
-
+import numpy as np
 
 
 # LIST OF ALL THE SHAPEFILES
@@ -10,7 +10,7 @@ list_of_shp_files = list()
 # LIST OF ATTRIBUTES OF SHAPE FILES
 shp_attributes = list ()
 
-grid_mat = list()
+grid_mat = np.ones((700,700), dtype=int)
 
 xmin,ymin,xmax,ymax = 0, 0, 0, 0
 length = 0.005

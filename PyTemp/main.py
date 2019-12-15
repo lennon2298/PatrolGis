@@ -112,7 +112,7 @@ class MyForm(QMainWindow):
         YtopOrigin = ymax
         YbottomOrigin = ymax- length
         polygons = []
-        new = []
+        # new = []
         print(type(grid_mat))
         for i in range(cols):
             Ytop = YtopOrigin
@@ -121,12 +121,13 @@ class MyForm(QMainWindow):
                 polygons.append(Polygon([(XleftOrigin, Ytop), (XrightOrigin, Ytop), (XrightOrigin, Ybottom), (XleftOrigin, Ybottom)])) 
                 Ytop = Ytop - length
                 Ybottom = Ybottom - length
-                new.append(0)
+                # new.append(0)
+                grid_mat[i][j] = 0
             XleftOrigin = XleftOrigin + width
             XrightOrigin = XrightOrigin + width
-            grid_mat.append(new)
+            # grid_mat.append(new)
         
-        # print((grid_mat))
+        print((grid_mat))
 
         grid = gpd.GeoDataFrame({'geometry':polygons})
         # grid.to_file('grid.shp')
