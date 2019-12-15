@@ -104,6 +104,7 @@ class MyForm(QMainWindow):
         print(f_name)
         poly = gpd.read_file(f_name)
         # print(poly['geometry'][0].coords.xy)
+        # print(poly.geometry.centroid.coords[0].x)
         global xmin,ymin,xmax,ymax
         xmin,ymin,xmax,ymax = poly.total_bounds
         print(xmin,ymin,xmax,ymax,length,width)
@@ -221,7 +222,10 @@ class MyForm(QMainWindow):
                 if(self.data_proj['geometry'][0].type == 'Point'):
                     self.data_proj.apply(lambda x: ax.annotate(s='P ' + x.Name, xy=x.geometry.centroid.coords[0], 
                         ha='center', va='bottom', weight='bold'),axis=1)
-                    print(self.data_proj.Name)
+                    # print(self.data_proj.geometry.centroid.x.iloc[0])
+                    self.geojson_file = gpd.read_file(self.f_name)
+                    self.geojson_file.to_file('./out2.json', driver='GeoJSON')
+                    # print(self.data_proj.Name)
                     # # print("ewsedrtfygvhbjbh")
                     # for idx, row in c.iterrows():
                     #     print(row)
