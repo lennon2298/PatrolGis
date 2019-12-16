@@ -19,10 +19,9 @@ import random
 from gis.template import *
 from gis.split import *
 from gis.test import *
-# from gis.algo import *
+from gis.algo import *
 from gis.shapefile_to_geojson import *
 from gis.pos import *
-# from gis.algo import *
 import numpy as np
 import fiona
 import heapq
@@ -74,88 +73,25 @@ class MyForm(QMainWindow):
         print(arr_pos1)
         print(arr_pos2)
         start = self.get_cell(arr_pos1[0], arr_pos1[1])
-        end = self.get_cell(arr_pos2[0], arr_pos2[1])
-        print(start)
-        print(end)
+        goal = self.get_cell(arr_pos2[0], arr_pos2[1])
+        # print(start)
+        # print(goal)
 
         # PROCESS FOR GET DATA FROM out2.json and and calulate the path
         print("calculating path")
-        geo_data_file = open('./new_data.txt', 'r')
-        if geo_data_file.mode == 'r':
-            
-            content = geo_data_file.read()
-            board = list(content)
-            print(type(content))
-        
-        print("data printed")
+        # start = (30,71)
+        # goal = (0,0)
+        global board
         grid = np.array(board)
-        goal = end
         board = [1]*2000 + 4363*[0]
         random.shuffle(board)
         board = [board[i:i+7] for i in range(0, 100, 10)]
-        print(type(board))
-        
-        route = self.astar(grid, start, goal, board)
+        print(board)
+        route = astar(grid, start, goal)
         route = route + [start]
         route = route[::-1]
         print(route)
         return True
-
-    # ALGORITHMs
-    def heuristic(self, a, b):
-        return np.sqrt((b[0] - a[0]) ** 2 + (b[1] - a[1]) ** 2)
-
- 
-    def astar(self, array, start, goal, board):
-
-        neighbors = [(0,1),(0,-1),(1,0),(-1,0),(1,1),(1,-1),(-1,1),(-1,-1)]
-
-        close_set = set()
-        came_from = {}
-        gscore = {start:0}
-        fscore = {start:self.heuristic(start, goal)}
-        oheap = []
-
-        heapq.heappush(oheap, (fscore[start], start))
-        
-        while oheap:
-
-            current = heapq.heappop(oheap)[1]
-
-            if current == goal:
-                data = []
-                while current in came_from:
-                    data.append(current)
-                    current = came_from[current]
-                return data
-
-            close_set.add(current)
-            for i, j in neighbors:
-                neighbor = current[0] + i, current[1] + j
-                tentative_g_score = gscore[current] + self.heuristic(current, neighbor)
-                print("gfcggc")
-                print(neighbor[1])
-                if 0 <= neighbor[0] < array.shape[0]:
-                    if 0 <= neighbor[1] < array.shape[1]:                
-                        if array[neighbor[0]][neighbor[1]] == 1:
-                            continue
-                    else:
-                        # array bound y walls
-                        continue
-                else:
-                    # array bound x walls
-                    continue
-                    
-                if neighbor in close_set and tentative_g_score >= gscore.get(neighbor, 0):
-                    continue
-                    
-                if  tentative_g_score < gscore.get(neighbor, 0) or neighbor not in [i[1]for i in oheap]:
-                    came_from[neighbor] = current
-                    gscore[neighbor] = tentative_g_score
-                    fscore[neighbor] = tentative_g_score + self.heuristic(neighbor, goal)
-                    heapq.heappush(oheap, (fscore[neighbor], neighbor))
-                    
-        return False
 
      # INIT BEAT FILE SPLIT    
     def split_beat(self):
