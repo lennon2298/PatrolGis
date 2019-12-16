@@ -9,6 +9,8 @@ list_of_shp_files = list()
 
 # LIST OF ATTRIBUTES OF SHAPE FILES
 shp_attributes = list ()
+
+route_points = list()
 grid_mat = []
 new = []
 # grid_mat = np.ones((700,700), dtype=int)

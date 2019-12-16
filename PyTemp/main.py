@@ -28,7 +28,7 @@ import heapq
 import matplotlib.image as mpimg
 import os.path
 from shapely.geometry import Polygon
-
+from shapely.geometry import Point
 class MyForm(QMainWindow):
 
     # VARIABLES
@@ -91,7 +91,42 @@ class MyForm(QMainWindow):
         route = route + [start]
         route = route[::-1]
         print(route)
+        self.get_coords(route)
         return True
+
+    def get_coords(self, route):
+        pnt_coords = []
+        for row in route:
+            for j in range(2):
+                # print(row[j], end = " ")
+                if(j == 0):
+                    row_coords = (ymax - 0.0025) - row[j]*length
+                    print(row_coords, end = ' ')
+                    pnt_coords.append(row_coords)
+                elif(j == 1):
+                    row_coords = (xmin + 0.0025) + row[j]*length
+                    print(row_coords)
+                    pnt_coords.append(row_coords)
+                # new = 
+            route_points.append(list(reversed(pnt_coords)))
+            pnt_coords = []
+        self.create_line_shp()
+            # print()
+        
+
+    def create_line_shp(self):
+        # print(route_points)
+        # line_string = Point(route_points)
+        line_string = []
+        for row in route_points:
+            print(row)
+            line_string.append(Point(row))
+        path = gpd.GeoDataFrame({'geometry':line_string})
+        path.crs = {'init' :'epsg:4326'}
+        path.to_file('./path.shp')
+        list_of_shp_files.append('./path.shp')
+        self.c_plot()
+        self.get_table()
 
      # INIT BEAT FILE SPLIT    
     def split_beat(self):
