@@ -14,16 +14,16 @@ route_points = list()
 grid_mat = []
 new = []
 # grid_mat = np.ones((700,700), dtype=int)
-for i in range(110):
-    for j in range(110):
+for i in range(150):
+    for j in range(150):
         new.append(1)
     grid_mat.append(new)
     new = []
 
 
 xmin,ymin,xmax,ymax = 0, 0, 0, 0
-length = 0.005
-width = 0.005
+length = 0.0025
+width = 0.0025
 rows = 0
 cols = 0
 

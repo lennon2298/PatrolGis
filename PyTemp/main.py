@@ -29,6 +29,7 @@ import matplotlib.image as mpimg
 import os.path
 from shapely.geometry import Polygon
 from shapely.geometry import Point
+import shapely
 class MyForm(QMainWindow):
 
     # VARIABLES
@@ -42,7 +43,7 @@ class MyForm(QMainWindow):
         self.ui.saveButton.clicked.connect(self.savefile)
         self.ui.saveasButton.clicked.connect(self.saveasfile)
         self.ui.menuCreatePath.triggered.connect(self.showChooseDialog)
-        self.ui.menuSplit.triggered.connect(self.create_grid)
+        # self.ui.menuSplit.triggered.connect(self.create_grid)
         self.setAcceptDrops(True)
         # self.setDragDropMode(QAbstractItemView.InternalMove)
         # self.ui.setAcceptDrops(True)
@@ -72,6 +73,7 @@ class MyForm(QMainWindow):
             raise ValueError("Enter a legit start position")
         print(arr_pos1)
         print(arr_pos2)
+        self.create_grid(get_dercs(pos1))
         start = self.get_cell(arr_pos1[0], arr_pos1[1])
         goal = self.get_cell(arr_pos2[0], arr_pos2[1])
         # print(start)
@@ -84,6 +86,7 @@ class MyForm(QMainWindow):
         global board
         grid = np.array(board)
         board = [1]*2000 + 4363*[0]
+        random.seed(0)
         random.shuffle(board)
         board = [board[i:i+7] for i in range(0, 100, 10)]
         print(board)
@@ -96,15 +99,16 @@ class MyForm(QMainWindow):
 
     def get_coords(self, route):
         pnt_coords = []
+        mid_pnt = length / 2
         for row in route:
             for j in range(2):
                 # print(row[j], end = " ")
                 if(j == 0):
-                    row_coords = (ymax - 0.0025) - row[j]*length
+                    row_coords = (ymax - mid_pnt) - row[j]*length
                     print(row_coords, end = ' ')
                     pnt_coords.append(row_coords)
                 elif(j == 1):
-                    row_coords = (xmin + 0.0025) + row[j]*length
+                    row_coords = (xmin + mid_pnt) + row[j]*length
                     print(row_coords)
                     pnt_coords.append(row_coords)
                 # new = 
@@ -119,7 +123,7 @@ class MyForm(QMainWindow):
         # line_string = Point(route_points)
         line_string = []
         for row in route_points:
-            print(row)
+            # print(row)
             line_string.append(Point(row))
         path = gpd.GeoDataFrame({'geometry':line_string})
         path.crs = {'init' :'epsg:4326'}
@@ -173,14 +177,20 @@ class MyForm(QMainWindow):
         except ValueError as e:
             print(e)
 
-    def create_grid(self):
-        f_name = list_of_shp_files[-1]
-        print(f_name)
-        poly = gpd.read_file(f_name)
+    def create_grid(self, descr):
+        # point_shp = gpd.read_file('../shapefiles/Wireless_station.shp')
+        # print(f_name)
+        print(descr)
+        polygon_shp = gpd.read_file('../shapefiles/BEAT.shp')
+        polygon_shp['geometry'] = polygon_shp['geometry'].to_crs(epsg=4326)
         # print(poly['geometry'][0].coords.xy)
         # print(poly.geometry.centroid.coords[0].x)
+        for i in range(0, len(polygon_shp['geometry'])):
+            if polygon_shp['BEAT_N'][i] == descr:
+                polygon = polygon_shp['geometry'][i]  
+        poly = shapely.geometry.asShape(polygon)
         global xmin,ymin,xmax,ymax, rows, cols
-        xmin,ymin,xmax,ymax = poly.total_bounds
+        xmin,ymin,xmax,ymax = poly.bounds
         print(xmin,ymin,xmax,ymax,length,width)
         rows = int(np.ceil((ymax-ymin) /  length))
         cols = int(np.ceil((xmax-xmin) / width))
@@ -209,6 +219,7 @@ class MyForm(QMainWindow):
         print(len(grid_mat[0]))
         print(rows, cols)
         f_data = open("new_data.txt", "w+")
+        
         f_data.write(str(grid_mat))
         f_data.close()
 
@@ -218,11 +229,11 @@ class MyForm(QMainWindow):
         grid.crs = {'init' :'epsg:4326'}
         grid.to_file('./grid.shp')
         print("here")
-        print(self.get_cell(80.6174166666667, 22.3383333333333))
+        # print(self.get_cell(80.6174166666667, 22.3383333333333))
         # print(grid)
-        # list_of_shp_files.append('./grid.shp')
-        # self.c_plot()
-        # self.get_table()
+        list_of_shp_files.append('./grid.shp')
+        self.c_plot()
+        self.get_table()
 
 
     def get_cell(self, g_lat, g_long):
@@ -298,7 +309,7 @@ class MyForm(QMainWindow):
                                figsize=(60, 60),
                                markersize=45
                               )
-
+                # print("lolol " + self.data_proj['geometry'][0].type)
                 if(self.data_proj['geometry'][0].type == 'Point'):
                     print(self.data_proj['geometry'][0])
                     self.data_proj.apply(lambda x: ax.annotate(s='P ' + x.Name, xy=x.geometry.centroid.coords[0], 

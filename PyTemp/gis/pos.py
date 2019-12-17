@@ -23,6 +23,16 @@ def get_coordinates(position):
             continue
         return False
 
+def get_dercs(position):
+    with open('out2.json') as f:
+        data = json.load(f)
+    
+    for i in data['features']:
+        if i['properties']['Name'] == position:
+            return i['properties']['Descr']
+        else:
+            continue
+        return False
 
 # pos1 = get_coordinates("09")
 # if pos1 == False:
