@@ -222,6 +222,6 @@ class Ui_MainWindow(object):
         self.menuSettings.setTitle(_translate("MainWindow", "Settings"))
         self.menuHelp.setTitle(_translate("MainWindow", "Help"))
         self.menuCreatePath.setText(_translate("MainWindow", "Generate Path"))
-        self.menuSplit.setText(_translate("MainWindow", "Split into Beats"))
+        self.menuSplit.setText(_translate("MainWindow", "Start Processing"))
 
 import resource_rc

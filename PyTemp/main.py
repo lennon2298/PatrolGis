@@ -85,8 +85,7 @@ class MyForm(QMainWindow):
         # goal = (0,0)
         global board
         grid = np.array(board)
-        board = [1]*2000 + 4363*[0]
-        random.seed(0)
+        board = [1]*4363 + 2000*[0]
         random.shuffle(board)
         board = [board[i:i+7] for i in range(0, 100, 10)]
         print(board)
@@ -95,6 +94,7 @@ class MyForm(QMainWindow):
         route = route[::-1]
         print(route)
         self.get_coords(route)
+        self.cd.close()
         return True
 
     def get_coords(self, route):
@@ -234,6 +234,10 @@ class MyForm(QMainWindow):
         list_of_shp_files.append('./grid.shp')
         self.c_plot()
         self.get_table()
+        # list_of_shp_files.append('./grid.shp')
+        # self.c_plot()
+        # self.get_table()
+        ok = QMessageBox.about(self, ' ', "Process Started")
 
 
     def get_cell(self, g_lat, g_long):
@@ -261,7 +265,6 @@ class MyForm(QMainWindow):
                 # print(list_of_shp_files)
                 # print(self.shape_file.STATE_N)
                 # self.yaga= list()
-
 
                 # PROCESSING FOR ATTRIBUTE
                 prop_keys_list = []
@@ -380,7 +383,7 @@ class MyForm(QMainWindow):
     
     def showCellDialog2(self):
         {
-            self.cd2.show()
+            self.cd2.show()   
         }
 
                
